@@ -19,7 +19,7 @@ namespace TCPLib
             while (true)
             {
                 TcpClient tempSocket = server.AcceptTcpClient();
-            
+
                 Task.Run(() => HandleClient(tempSocket));
             }
         }
@@ -33,7 +33,10 @@ namespace TCPLib
             string receivedStr = sr.ReadLine();
             Console.WriteLine($"Received: {receivedStr}");
             Car car = DeserializeCar(receivedStr);
-            Console.WriteLine($"Deserialized car: {car}");
+            if (car != null)
+            {
+                Console.WriteLine($"Deserialized car: {car}");
+            }
             sw.WriteLine(receivedStr);
             sw.Flush();
             socket.Close();
